@@ -1,50 +1,8 @@
+
+import {fetchSinglePlayer, fetchAllPlayers, addNewPlayer, removePlayer } from './app';
+
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
-
-// Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
-// Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
-
-/**
- * It fetches all players from the API and returns them
- * @returns An array of objects.
- */
-const fetchAllPlayers = async () => {
-    try {
-
-    } catch (err) {
-        console.error('Uh oh, trouble fetching players!', err);
-    }
-};
-
-const fetchSinglePlayer = async (playerId) => {
-    try {
-
-    } catch (err) {
-        console.error(`Oh no, trouble fetching player #${playerId}!`, err);
-    }
-};
-
-const addNewPlayer = async (playerObj) => {
-    try {
-
-    } catch (err) {
-        console.error('Oops, something went wrong with adding that player!', err);
-    }
-};
-
-const removePlayer = async (playerId) => {
-    try {
-
-    } catch (err) {
-        console.error(
-            `Whoops, trouble removing player #${playerId} from the roster!`,
-            err
-        );
-    }
-};
-
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
  * player, then adds that string to a larger string of HTML that represents all the players. 
@@ -65,32 +23,123 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
-const renderAllPlayers = (playerList) => {
-    try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering players!', err);
+ export const renderAllPlayers = (playerList) => {
+    try{
+     playerContainer.innerHTML ='';
+     playerList.forEach((puppies)=> {
+        const puppyElement = document.createElement('div');
+         puppyElement.classList.add('puppies');
+         puppyElement.innerHTML = `
+         <h1>Name: ${puppies.name}</h1>
+         <h1>Breed: ${puppies.breed}</h1>
+         <h1>Status: ${puppies.status}</h1>
+         <img src="${puppies.imageUrl}" alt="${puppies.name}"></img>
+         
+         <button class="detail-button" id="${puppies.id}">View Roster</button>
+         <button class="delete-button" id="${puppies.id}">Remove Player</button>
+         `;
+         playerContainer.appendChild(puppyElement);
+         // view detail
+         const detailButton = puppyElement.querySelector('.detail-button');
+         detailButton.addEventListener('click', async (event)=> {
+            const playerById = event.target.id;
+            console.log(playerById)
+            const detailBtn = await fetchSinglePlayer(playerById);
+            await renderSinglePlayerById(playerById,puppyElement) 
+         });
+         // remove roster
+         const deleteBtn = puppyElement.querySelector('.delete-button');
+         deleteBtn.addEventListener('click', async(event)=>{
+            const deleteRoster = event.target.id;
+            const response = await removePlayer(deleteRoster)
+            // if(response.status === 200) {
+                puppyElement.remove()
+            // }
+         });
+     });
+    
+    }catch(error){
+        console.log(error)
     }
-};
-
+}
 
 /**
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
  */
-const renderNewPlayerForm = () => {
-    try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
-    }
-}
+export const renderNewPlayerForm = () => {
+    const newPlayerForm = `
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" name="name"/><br>
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed" /><br>
+        <label for="status">Status:</label>
+        <select type="text" name="status" /><br>
+            <option value="bench">bench</option>
+            <option value="field">field</field>
+            </select><br>
+        <label for="imageUrl">ImageURL:</label>
+        <input type="text" name="imageUrl" /><br>
+        <button type="submit">Submit</button>
+      </form>
+    `;
+    newPlayerFormContainer.innerHTML = newPlayerForm;
+  
+    const newForm = document.querySelector('#new-player-form > form');
+      newForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      let playerData = {
+        name: newForm.elements.name.value,
+        breed: newForm.elements.breed.value,
+        status: newForm.elements.status.value,
+        imageUrl: newForm.elements.imageUrl.value,
+      }
+      await addNewPlayer(playerData);
+      const players = await fetchAllPlayers();
+      renderAllPlayers(players);
+      newForm.elements.name.value = '';
+      newForm.elements.breed.value = '';
+      newForm.elements.status.value = '';
+      newForm.elements.imageUrl.value ='';
+    });
+  }
 
-const init = async () => {
-    const players = await fetchAllPlayers();
-    renderAllPlayers(players);
 
-    renderNewPlayerForm();
-}
+  //render a single player by id
+ export const renderSinglePlayerById = async (id, puppyElement) => {
+      try {
+          // fetch player details from server
+          const player = await fetchSinglePlayer(id);
+          console.log(player)
+  
+          // create new HTML element to display player details
+          const playerDetailsElement = document.createElement('div');
+          playerDetailsElement.classList.add('player-details');
+          playerDetailsElement.innerHTML = `
+              <h3>PLAYER:    ${player.name}</h3>
+              <h4>ID:        ${player.id}</h4>
+              <h4>STATUS:    ${player.status}</h4>
+              <h4>BREED:     ${player.breed}</h4>
+              <h4>CREATED AT:${player.createdAt}</h4>
+              <h4>UPDATED AT:${player.updatedAt}</h4>
+              <h4>TEAM_ID:   ${player.teamId}</h4>           
+              <h4>COHORT_ID: ${player.cohortId}</h4>
+                        
+              <button class="close-button">Close</button>
+          `;
+  
+          // partyContainer.appendChild(partyDetailsElement);
+          puppyElement.appendChild(playerDetailsElement);
+  
+          // add event listener to close button
+          const closeButton = playerDetailsElement.querySelector('.close-button');
+          closeButton.addEventListener('click', () => {
+              playerDetailsElement.remove();
+          });
+      } catch (error) {
+          console.error(error);
+      }
+  };
+  
 
-init();
