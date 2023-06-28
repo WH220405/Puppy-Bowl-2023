@@ -69,6 +69,7 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
  */
  export const renderNewPlayerForm = () => {
     const newPlayerForm = `
+        <h2>Add New Player</h2>
       <form>
         <label for="name">Name:</label>
         <input type="text" name="name"/><br>
@@ -81,7 +82,7 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
             </select><br>
         <label for="imageUrl">ImageURL:</label>
         <input type="text" name="imageUrl" /><br>
-        <button type="submit">Submit</button>
+        <button type="submit">Add Player</button>
       </form>
     `;
     newPlayerFormContainer.innerHTML = newPlayerForm;
