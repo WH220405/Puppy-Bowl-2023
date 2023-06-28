@@ -122,8 +122,6 @@ export const renderSinglePlayerById = async (id, puppyElement) => {
               <h4>ID:        ${player.id}</h4>
               <h4>STATUS:    ${player.status}</h4>
               <h4>BREED:     ${player.breed}</h4>
-              <h4>CREATED AT:${player.createdAt}</h4>
-              <h4>UPDATED AT:${player.updatedAt}</h4>
               <h4>TEAM_ID:   ${player.teamId}</h4>           
               <h4>COHORT_ID: ${player.cohortId}</h4>
                         

@@ -77,6 +77,9 @@ button{
   border-color: greenyellow;
 
 }
+.player-details{
+  font-family: monospace;
+}
 .detail-button{
   margin: 1em;
   width: 200px;
