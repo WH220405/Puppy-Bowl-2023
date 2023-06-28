@@ -22,13 +22,13 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
     }
 };
 
-export const fetchSinglePlayer = async (playerId) => {
+ export const fetchSinglePlayer = async (playerId) => {
     console.log(playerId)
     try {
         const response = await fetch(`${APIURL}/players/${playerId}`);
         //console.log(response)
         const playerResult = await response.json();
-        if (result.error) throw result.error;
+       
         console.log(playerResult)
         return playerResult.data.player;
         
@@ -50,7 +50,7 @@ teamId: null
 updatedAt: "2023-06-26T05:14:26.832
 */
 
-export const addNewPlayer = async (playerObj) => {
+ export const addNewPlayer = async (playerObj) => {
     try {
         const response = await fetch(`${APIURL}/players`, {
             method: 'POST',
@@ -71,7 +71,7 @@ export const addNewPlayer = async (playerObj) => {
     }
 };
 
-export const removePlayer = async (playerId) => {
+ export const removePlayer = async (playerId) => {
     try {
      const response = await fetch(`${APIURL}/players/${playerId}`,
      {
@@ -88,3 +88,7 @@ export const removePlayer = async (playerId) => {
         );
     }
 };
+
+
+
+

@@ -1,6 +1,6 @@
 
-import {fetchAllPlayers} from './app';
-import {renderAllPlayers, renderNewPlayerForm} from './script'
+import {fetchAllPlayers} from './app.js';
+import {renderAllPlayers, renderNewPlayerForm} from './script.js'
 
 
 const init = async () => {

@@ -1,5 +1,5 @@
 
-import {fetchSinglePlayer, fetchAllPlayers, addNewPlayer, removePlayer } from './app';
+import { fetchAllPlayers, fetchSinglePlayer, addNewPlayer, removePlayer } from './app.js';
 
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
@@ -67,7 +67,7 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
  */
-export const renderNewPlayerForm = () => {
+ export const renderNewPlayerForm = () => {
     const newPlayerForm = `
       <form>
         <label for="name">Name:</label>
@@ -107,7 +107,7 @@ export const renderNewPlayerForm = () => {
 
 
   //render a single player by id
- export const renderSinglePlayerById = async (id, puppyElement) => {
+export const renderSinglePlayerById = async (id, puppyElement) => {
       try {
           // fetch player details from server
           const player = await fetchSinglePlayer(id);
@@ -129,7 +129,6 @@ export const renderNewPlayerForm = () => {
               <button class="close-button">Close</button>
           `;
   
-          // partyContainer.appendChild(partyDetailsElement);
           puppyElement.appendChild(playerDetailsElement);
   
           // add event listener to close button
