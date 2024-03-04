@@ -29,6 +29,8 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
      playerList.forEach((puppies)=> {
         const puppyElement = document.createElement('div');
          puppyElement.classList.add('puppies');
+         //creates a string of HTML for each player
+
          puppyElement.innerHTML = `
          <h1>Name: ${puppies.name}</h1>
          <h1>Breed: ${puppies.breed}</h1>
@@ -62,6 +64,8 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
         console.log(error)
     }
 }
+
+
 
 /**
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
@@ -99,6 +103,7 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
       await addNewPlayer(playerData);
       const players = await fetchAllPlayers();
       renderAllPlayers(players);
+      //clear the form.
       newForm.elements.name.value = '';
       newForm.elements.breed.value = '';
       newForm.elements.status.value = '';

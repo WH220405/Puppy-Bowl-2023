@@ -28,7 +28,7 @@
   width: 20em;
   margin-left: 350px;
   margin-top: 80px;
-  color: red;
+  color: rgb(255, 0, 0);
   font-size: 20px;
   text-align: center;
   
@@ -62,7 +62,8 @@ button{
    flex-wrap: wrap;
     margin: 20px;
     margin-top: 5px;
-    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 #image {
@@ -74,26 +75,13 @@ button{
   padding: 1.5em;
   border-radius: 10%;
   background-color: orangered;
-  border-color: greenyellow;
+
 
 }
 .player-details{
   font-family: monospace;
 }
-.detail-button{
-  margin: 1em;
-  width: 200px;
-  height: 2em;
-  box-shadow: 10px 10px;
-  color: black;
-}
-.delete-button{
-  margin: 1em;
-  width: 200px;
-  height: 2em;
-  box-shadow: 10px 10px ;
-  color: black;
-}
+
 .close-button{
   width: 70px;
   height: 2em;
@@ -101,7 +89,25 @@ button{
   color: blue;
   box-shadow: 5px 5px ;
   border-radius: 20%;
+  cursor: pointer;
 }
+.detail-button{
+  margin: 1em;
+  width: 200px;
+  height: 2em;
+  box-shadow: 10px 10px;
+  color: black;
+  cursor: pointer;
+}
+.delete-button{
+  margin: 1em;
+  width: 200px;
+  height: 2em;
+  box-shadow: 10px 10px ;
+  color: black;
+  cursor: pointer;
+}
+
 h1{
   font-family: Arial, Helvetica, sans-serif;
   font-size: medium;
